@@ -12,6 +12,7 @@ function App() {
   // const [position, setPosition] = useState({ lat: 51.505, lon: -0.09 });
   const [countryProps, setCountryProps] = useState(null);
   const [spinner, setSpinner] = useState(false);
+  const [spinner2, setSpinner2] = useState(false);
   const [ipApi, setIpApi] = useState();
 
   useEffect(() => {
@@ -41,14 +42,14 @@ function App() {
 
   useEffect(() => {
     const fetchCountry = async () => {
-      setSpinner(true);
+      setSpinner2(true);
       try {
         const myCountry = await axios(
           `https://restcountries.eu/rest/v2/name/${ipApi.data.countryCode}?fullText=true`
           // `https://restcountries.eu/rest/v2/name/${country2}?fullText=true`
         );
         setCountryProps(myCountry);
-        setSpinner(false);
+        setSpinner2(false);
       } catch (error) {}
     };
     fetchCountry();
@@ -59,7 +60,7 @@ function App() {
     <div className="App">
       <div id="wrapper">
         {countryProps && ipApi && <Country countryProps={countryProps} ipApi={ipApi}></Country>}
-        {spinner && <Spinner animation="border" />}
+        {(spinner|spinner2) && <Spinner animation="border" />}
         {ipApi && <Body ipApi={ipApi} />}
       </div>
     </div>
