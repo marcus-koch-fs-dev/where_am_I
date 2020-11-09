@@ -19,10 +19,14 @@ function App() {
     const fetchIpApi = async () => {
       setSpinner(true);
       try {
+        console.log("try fetch ip")
         const myIpApi = await axios(`http://ip-api.com/json/`);
         setIpApi(myIpApi);
-        setSpinner(false);
-      } catch (error) {}
+   
+      } catch (error) {
+        console.log(error.message)
+
+      }
     };
     fetchIpApi();
   }, []);
@@ -44,13 +48,17 @@ function App() {
     const fetchCountry = async () => {
       // setSpinner2(true);
       try {
+        console.log("try fetch country")
         const myCountry = await axios(
           `https://restcountries.eu/rest/v2/name/${ipApi.data.countryCode}?fullText=true`
           // `https://restcountries.eu/rest/v2/name/${country2}?fullText=true`
         );
         setCountryProps(myCountry);
+        setSpinner(false);
         // setSpinner2(false);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error.message)
+      }
     };
     fetchCountry();
   }, [ipApi]);
