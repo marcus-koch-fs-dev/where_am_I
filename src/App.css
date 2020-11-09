@@ -1,22 +1,46 @@
 .App {
-  display: flex;
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 0.2fr 1.5fr 0.8fr;
+  grid-template-areas: 
+  "nav nav nav nav"
+  "side-left wrapper wrapper side-right"
+  "footer footer footer footer";
+  /* "nav nav nav nav"; */
+  /* display: flex;
   justify-Content: center;
-  align-Items: center;
+  align-Items: center; */
   font-family: 'Nunito', sans-serif;
-  /* border: 1px black solid; */
   background-color:lightblue;
-  /* background: rgba(95, 158, 160, 0.4); */
+
 }
 
 #wrapper {
-  display: flex;
-  flex-direction: column;
+  
+  /* flex-direction: column; */
   border: 2px black solid;
   background-color: rgba(255, 255, 255, 0.856);
   border-radius: 1%;
   padding: 1.2rem;
 }
 
+#nav{
+  border: 2px black solid;
+  grid-area: nav;
+}
+#side-left{
+  border: 2px black solid;
+  grid-area: side-left;
+}
+#side-right{
+  border: 2px black solid;
+  grid-area: side-right;
+}
+#footer{
+  border: 2px black solid;
+  grid-area: footer;
+}
 
 
 
