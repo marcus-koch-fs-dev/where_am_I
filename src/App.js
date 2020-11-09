@@ -18,8 +18,9 @@ function App() {
        setSpinner(true);
       try {
     console.log("try fetch ip")
+        const {REACT_APP_API_KEY} = process.env
         const myLocation = await axios(
-          `https://geo.ipify.org/api/v1?apiKey=${process.env.REACT_APP_API_KEY}`
+          `https://geo.ipify.org/api/v1?apiKey=${REACT_APP_API_KEY}`
           // `https://geo.ipify.org/api/v1?apiKey=${process.env.REACT_APP_API_KEY}&${ipAddress}}`
         );
         setCountry(myLocation.data.location.country);
