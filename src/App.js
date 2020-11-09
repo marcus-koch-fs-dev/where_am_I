@@ -63,6 +63,10 @@ function App() {
         {(spinner) && <Spinner animation="border" />}
         {ipApi && <Body ipApi={ipApi} />}
       </div>
+      <div id="nav"></div>
+      <div id="side-left"></div>
+      <div id="side-right"></div>
+      <div id="footer"></div>
     </div>
   );
 }
