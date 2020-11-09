@@ -3,10 +3,11 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import './Body.css'
 
 export default function Body(props) {
-    return (
+  // console.log(props)  
+  return (
     <div id="mapid">
       <MapContainer
-        center={[props.ipApi.data.lat, props.ipApi.data.lon]}
+        center={[props.position.lat, props.position.lng]}
         zoom={13}
         scrollWheelZoom={true}
       >
@@ -14,9 +15,9 @@ export default function Body(props) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[props.ipApi.data.lat, props.ipApi.data.lon]}>
+        <Marker position={[props.position.lat, props.position.lng]}>
           <Popup>
-          Your position<br /><strong>{props.ipApi.data.city}</strong> 
+          Your position<br /><strong>{props.position.city}</strong> 
           </Popup>
         </Marker>
       </MapContainer>

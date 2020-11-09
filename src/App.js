@@ -7,69 +7,55 @@ import Country from "./components/Header";
 import Body from "./components/Body";
 
 function App() {
-  // const ipAddress = "80.138.156.63";
-  // const [country2, setCountry] = useState("uk");
-  // const [position, setPosition] = useState({ lat: 51.505, lon: -0.09 });
+  const [country2, setCountry] = useState(null);
+  const [position, setPosition] = useState(null);
   const [countryProps, setCountryProps] = useState(null);
   const [spinner, setSpinner] = useState(false);
-  // const [spinner2, setSpinner2] = useState(false);
-  const [ipApi, setIpApi] = useState();
+  const [myLocationData, setMyLocationData] = useState(null);
 
   useEffect(() => {
-    const fetchIpApi = async () => {
-      setSpinner(true);
+    const fetchLocation = async () => {
+       setSpinner(true);
       try {
-        console.log("try fetch ip")
-        const myIpApi = await axios(`http://ip-api.com/json/`);
-        setIpApi(myIpApi);
-   
+    console.log("try fetch ip")
+        const myLocation = await axios(
+          `https://geo.ipify.org/api/v1?apiKey=${process.env.REACT_APP_API_KEY}`
+          // `https://geo.ipify.org/api/v1?apiKey=${process.env.REACT_APP_API_KEY}&${ipAddress}}`
+        );
+        setCountry(myLocation.data.location.country);
+        setPosition(myLocation.data.location);
+        setMyLocationData(myLocation)
       } catch (error) {
-        console.log(error.message)
+    console.log(error.message)
 
-      }
+  }
     };
-    fetchIpApi();
+    fetchLocation();
   }, []);
-
-  // useEffect(() => {
-  //   const fetchLocation = async () => {
-  //     try {
-  //       const myLocation = await axios(
-  //         `https://geo.ipify.org/api/v1?apiKey=${process.env.REACT_APP_API_KEY}&${ipAddress}`
-  //       );
-  //       setCountry(myLocation.data.location.country);
-  //       setPosition(myLocation.data.location);
-  //     } catch (error) {}
-  //   };
-  //   fetchLocation();
-  // }, []);
 
   useEffect(() => {
     const fetchCountry = async () => {
-      // setSpinner2(true);
       try {
         console.log("try fetch country")
         const myCountry = await axios(
-          `https://restcountries.eu/rest/v2/name/${ipApi.data.countryCode}?fullText=true`
-          // `https://restcountries.eu/rest/v2/name/${country2}?fullText=true`
+          `https://restcountries.eu/rest/v2/name/${country2}?fullText=true`
         );
         setCountryProps(myCountry);
         setSpinner(false);
-        // setSpinner2(false);
       } catch (error) {
         console.log(error.message)
       }
     };
     fetchCountry();
-  }, [ipApi]);
-  // }, [country2]);
+  }, [country2]);
+
 
   return (
     <div className="App">
       <div id="wrapper">
-        {countryProps && ipApi && <Country countryProps={countryProps} ipApi={ipApi}></Country>}
+        {(countryProps && myLocationData) && <Country countryProps={countryProps} myLocationData={myLocationData}></Country>}
         {(spinner) && <Spinner animation="border" />}
-        {ipApi && <Body ipApi={ipApi} />}
+        {position && <Body position={position} />}
       </div>
       <div id="nav"></div>
       <div id="side-left"></div>

@@ -3,21 +3,19 @@ import React from 'react';
 import "./Header.css";
 
 export default function Country(props) {
-    // console.log(props.ipApi.data);
-    // console.log(props.countryProps);
-   
+  
     return (
         <div className = "header-position">
           <div className = "header-position-position">
           <h1>Where am I?</h1>
-          <p>Welcome, this is your current {<strong>IP: {props.ipApi.data.query}</strong>}</p>
-          <p>Your are currently located in {<strong>"{props.ipApi.data.city}"</strong>} ({props.ipApi.data.regionName})</p>
-          <p>Your geographical position is {<strong>Lat.:</strong>} {props.ipApi.data.lat} | {<strong>Lon.:</strong>} {props.ipApi.data.lon} </p>
-          <p>The region {props.ipApi.data.regionName} is a subregion of {<span>{props.ipApi.data.country}</span>}</p>
+          <p>Welcome, this is your current {<strong>IP: {props.myLocationData.data.ip}</strong>}</p>
+          <p>Your are currently located in {<strong>"{props.myLocationData.data.location.city}"</strong>} ({props.myLocationData.data.location.region})</p>
+          <p>Your geographical position is {<strong>Lat.:</strong>} {props.myLocationData.data.location.lat} | {<strong>Lon.:</strong>} {props.myLocationData.data.location.lng} </p>
+          <p>The region {props.myLocationData.data.location.region} is a subregion of {<span>{props.countryProps.data[0].name}</span>}</p> 
           </div>
           <div className ="header-position-about">
           <ul>
-            <li><strong>About {props.ipApi.data.country}:</strong></li>
+            <li><strong>About {props.countryProps.data[0].name}:</strong></li>
             <li>Country name: {props.countryProps.data[0].altSpellings[2]} ({props.countryProps.data[0].altSpellings[1]})</li>
             <li>Capital: {props.countryProps.data[0].capital}</li>
             <li>Population: {props.countryProps.data[0].population}</li>
