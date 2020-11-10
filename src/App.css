@@ -25,19 +25,19 @@
 }
 
 #nav{
-  border: 2px black solid;
+  /* border: 2px black solid; */
   grid-area: nav;
 }
 #side-left{
-  border: 2px black solid;
+  /* border: 2px black solid; */
   grid-area: side-left;
 }
 #side-right{
-  border: 2px black solid;
+  /* border: 2px black solid; */
   grid-area: side-right;
 }
 #footer{
-  border: 2px black solid;
+  /* border: 2px black solid; */
   grid-area: footer;
 }
 
