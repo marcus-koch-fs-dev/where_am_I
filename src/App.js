@@ -3,7 +3,7 @@ import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 // import "./normalize.css";
 import "./App.css";
-import Country from "./components/Country";
+
 import Body from "./components/Body";
 import Card from "./components/Card"
 
@@ -12,7 +12,7 @@ function App() {
   const [extraCountryInfo, setExtraCountryInfo] = useState(null);
   const [spinnerEnabled, setSpinnerEnabled] = useState(false);
   const [myLocationData, setMyLocationData] = useState(null);
-  // const [handlePositionByBrowser, setHandlePositionByBrowser] = useState(false);
+ 
 
   useEffect(() => {
     const fetchLocationInfo = async () => {
