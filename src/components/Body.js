@@ -7,17 +7,18 @@ export default function Body(props) {
   return (
     <div id="mapid">
       <MapContainer
-        center={[props.position.lat, props.position.lng]}
+        center={[props.geoPosition.lat, props.geoPosition.lng]}
         zoom={13}
         scrollWheelZoom={true}
-      >
+        >
+        {console.log("re render",props.geoPosition.lat, props.geoPosition.lng)}
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[props.position.lat, props.position.lng]}>
+        <Marker position={[props.geoPosition.lat, props.geoPosition.lng]}>
           <Popup>
-          Your position<br /><strong>{props.position.city}</strong> 
+          Your are here 
           </Popup>
         </Marker>
       </MapContainer>
