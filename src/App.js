@@ -1,68 +1,92 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
-import "./normalize.css";
+// import "./normalize.css";
 import "./App.css";
-import Country from "./components/Header";
+import Country from "./components/Country";
 import Body from "./components/Body";
+import Card from "./components/Card"
 
 function App() {
-  const [country2, setCountry] = useState(null);
-  const [position, setPosition] = useState(null);
-  const [countryProps, setCountryProps] = useState(null);
-  const [spinner, setSpinner] = useState(false);
+  const [geoPosition, setGeoPosition] = useState(null);
+  const [extraCountryInfo, setExtraCountryInfo] = useState(null);
+  const [spinnerEnabled, setSpinnerEnabled] = useState(false);
   const [myLocationData, setMyLocationData] = useState(null);
+  // const [handlePositionByBrowser, setHandlePositionByBrowser] = useState(false);
 
   useEffect(() => {
-    const fetchLocation = async () => {
-       setSpinner(true);
+    const fetchLocationInfo = async () => {
+      console.log("test");
+      let getCurrentCountry = "";
+      setSpinnerEnabled(true);
       try {
-    console.log("try fetch ip")
-        const {REACT_APP_API_KEY} = process.env
-        const myLocation = await axios(
+        const { REACT_APP_API_KEY } = process.env;
+        const getMyLocation = await axios(
           `https://geo.ipify.org/api/v1?apiKey=${REACT_APP_API_KEY}`
-          // `https://geo.ipify.org/api/v1?apiKey=${process.env.REACT_APP_API_KEY}&${ipAddress}}`
         );
-        setCountry(myLocation.data.location.country);
-        setPosition(myLocation.data.location);
-        setMyLocationData(myLocation)
+        // setCountry(getMyLocation.data.location.country);
+        getCurrentCountry = getMyLocation.data.location.country;
+        setMyLocationData(getMyLocation);
+        setGeoPosition(getMyLocation.data.location);
       } catch (error) {
-    console.log(error.message)
-
-  }
+        console.log(error.message);
+      }
+      try {
+        const getExtraCountryData = await axios(
+          `https://restcountries.eu/rest/v2/name/${getCurrentCountry}?fullText=true`
+        );
+        setExtraCountryInfo(getExtraCountryData);
+      } catch (error) {
+        console.log(error.message);
+      }
+      setSpinnerEnabled(false);
     };
-    fetchLocation();
+    fetchLocationInfo();
   }, []);
 
-  useEffect(() => {
-    const fetchCountry = async () => {
-      try {
-        console.log("try fetch country")
-        const myCountry = await axios(
-          `https://restcountries.eu/rest/v2/name/${country2}?fullText=true`
-        );
-        setCountryProps(myCountry);
-        setSpinner(false);
-      } catch (error) {
-        console.log(error.message)
-      }
-    };
-    fetchCountry();
-  }, [country2]);
-
-
+  
   return (
     <div className="App">
       <div id="wrapper">
-        {(countryProps && myLocationData) && <Country countryProps={countryProps} myLocationData={myLocationData}></Country>}
-        {(spinner) && <Spinner animation="border" />}
-        {position && <Body position={position} />}
+        {extraCountryInfo && myLocationData && (
+          <Card
+          extraCountryInfo={extraCountryInfo}
+          myLocationData={myLocationData}
+          geoPosition={geoPosition}
+          setGeoPosition={setGeoPosition}
+          ></Card>
+          
+          // <Country
+          //   extraCountryInfo={extraCountryInfo}
+          //   myLocationData={myLocationData}
+          //   geoPosition={geoPosition}
+          //   setGeoPosition={setGeoPosition}
+          // ></Country>
+        )}
+        {spinnerEnabled && <Spinner animation="border" />}
+        {geoPosition && <Body geoPosition={geoPosition} />}
+        {/* {console.log(<Body></Body>)} */}
       </div>
-      <div id="nav"></div>
-      <div id="side-left"></div>
-      <div id="side-right"></div>
-      <div id="footer"></div>
     </div>
   );
 }
+
 export default App;
+
+// geoPosition={geoPosition}
+// setGeoPosition={setGeoPosition}
+//   return (
+//     <div className="App">
+//       <div id="wrapper">
+//         {(countryProps && myLocationData) && <Country countryProps={countryProps} myLocationData={myLocationData}></Country>}
+//         {(spinner) && <Spinner animation="border" />}
+//         {position && <Body position={position} />}
+//       </div>
+//       <div id="nav"></div>
+//       <div id="side-left"></div>
+//       <div id="side-right"></div>
+//       <div id="footer"></div>
+//     </div>
+//   );
+// }
+// export default App;
