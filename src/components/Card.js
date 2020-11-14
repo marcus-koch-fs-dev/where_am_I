@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+
 import Typography from '@material-ui/core/Typography';
 
 
@@ -17,24 +17,7 @@ const useStyles = makeStyles({
 });
 export default function MediaCard(props) {
     const classes = useStyles();
-        const getPositionByBrowser = () => {
-        const options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-              };
-              function error(err) {
-                console.warn(`ERROR(${err.code}): ${err.message}`);
-              }
-                 
-            navigator.geolocation.getCurrentPosition((position) => {
-              const latBrowser = position.coords.latitude;
-              const lngBrowser = position.coords.longitude;
-              props.setGeoPosition({...props.geoPosition, lat:latBrowser})
-              props.setGeoPosition({...props.geoPosition, lng:lngBrowser})
-            },error,options);
-        };
-
+        
   return (
     <Card className={classes.root} align="center">
         <CardContent>
@@ -64,9 +47,7 @@ export default function MediaCard(props) {
 
         </CardContent>
       <CardActions >
-        {/* <Button size="small" color="primary"onClick={getPositionByBrowser} >
-          Exact Position Here
-        </Button> */}
+      
       </CardActions>
     </Card>
   );
