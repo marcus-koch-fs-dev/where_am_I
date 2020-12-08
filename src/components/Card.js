@@ -39,7 +39,7 @@ export default function MediaCard(props) {
     <Card className={classes.root} align="center">
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2"align="center" >
-          Where am I?
+          What's my IP?
           </Typography>
           <Typography variant="body2" color="textSecondary"  align="center" component="p" >
           Welcome, this is your current IP: <br/> {<strong>{props.myLocationData.data.ip}</strong>}<br/>
@@ -64,9 +64,9 @@ export default function MediaCard(props) {
 
         </CardContent>
       <CardActions >
-        {/* <Button size="small" color="primary"onClick={getPositionByBrowser} >
+        <Button size="small" color="primary"onClick={getPositionByBrowser} >
           Exact Position Here
-        </Button> */}
+        </Button>
       </CardActions>
     </Card>
   );
