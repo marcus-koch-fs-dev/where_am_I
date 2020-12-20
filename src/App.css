@@ -1,72 +1,23 @@
 ul{
   list-style: none;
-  /* padding: 0;
-  margin: 0; */
 }
 
 li{line-height: 1.5rem;}
 
 .App {
+  background-image: url("./assets/XT205511.JPG");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:cover;
   display: flex;
-  /* display: grid;
-  height: 100vh;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 0.2fr 1.5fr 0.8fr;
-  grid-template-areas: 
-  "nav nav nav nav"
-  "side-left wrapper wrapper side-right"
-  "footer footer footer footer"; */
-  /* "nav nav nav nav"; */
-  /* display: flex; */
   justify-Content: center;
   align-items: center;
   align-content: center;
   font-family: 'Nunito', sans-serif;
   background-color:lightblue;
-  /* margin: 0px auto;  */
-
 }
 
 #wrapper {
-  /* width: 40%; */
   height: 80%;
-  /* flex-direction: column;*/
-  /* border: 2px black solid; */
- /*background-color: rgba(255, 255, 255, 0.856);
-  border-radius: 1%;
-  padding: 1.2rem;*/
 }
-
-/* @media screen and (max-width: 320px) {
-  h1{font-size: 5vw;}
-
-  p{font-size: 4vw;}
-
-  .header-position-about {text-align: start;}
-  
-  li{font-size: 3vw;}
-  
-  img {width: 5vw;}
-
-  #wrapper {
-    width: 90%;
-    height: 90%;
-  }
-} */
-
-/* @media screen and (min-width: 1000px) {
-  
-  h1{
-    font-size: 4vw;
-  }
-
-  p{
-    font-size: 3vw;
-  } */
-  /* #wrapper {
-    font-size: 22px;
-  } */
-/* } */
-
-
 
