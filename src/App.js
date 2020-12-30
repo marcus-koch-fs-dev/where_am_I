@@ -3,6 +3,7 @@ import axios from 'axios'
 import Spinner from 'react-bootstrap/Spinner'
 import MapBox from './components/MapBoxContainer'
 import InfoWindow from './components/InfoWindow'
+import { config } from './config'
 import './App.css'
 
 function App() {
@@ -53,11 +54,12 @@ function App() {
       let geoReverseResults
 
       try {
-        const { REACT_APP_GeoIpFy_API_KEY } = process.env
+        const { Key } = config.geoIpFy
+        console.log('Key', Key === undefined)
         const { latitude } = coordinates
         const { longitude } = coordinates
         geoReverseResults = await axios(
-          `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&limit=1&apiKey=${REACT_APP_GeoIpFy_API_KEY}`
+          `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&limit=1&apiKey=${Key}`
         )
         setPositionData(geoReverseResults.data.features[0])
       } catch (error) {
