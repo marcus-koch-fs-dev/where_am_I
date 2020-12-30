@@ -5,12 +5,13 @@ import ReactMapboxGl, {
   ZoomControl,
   RotationControl,
 } from 'react-mapbox-gl'
+import config from '../config'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 export default function MapBoxContainer(props) {
-  const { REACT_APP_MAPBOX_API_KEY_A } = process.env
-  const { REACT_APP_MAPBOX_API_KEY_B } = process.env
-  const { REACT_APP_MAPBOX_API_KEY_C } = process.env
+  const { REACT_APP_MAPBOX_API_KEY_A } = config.mapbox.KeyA
+  const { REACT_APP_MAPBOX_API_KEY_B } = config.mapbox.KeyB
+  const { REACT_APP_MAPBOX_API_KEY_C } = config.mapbox.KeyC
   const { setCoordinates } = props
   const latMap = props.coordinates.latitude
   const lngMap = props.coordinates.longitude
