@@ -17,6 +17,8 @@ function App() {
       const error = (err) =>{}
       const option = {
         enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge:10000
       };
       
       if (!navigator.geolocation) {
