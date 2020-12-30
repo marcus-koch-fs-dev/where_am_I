@@ -1,65 +1,101 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Spinner from "react-bootstrap/Spinner";
-import "./normalize.css";
-import "./App.css";
-
-import Body from "./components/Body";
-import Card from "./components/Card"
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import Spinner from 'react-bootstrap/Spinner'
+import MapBox from './components/MapBoxContainer'
+import InfoWindow from './components/InfoWindow'
+import './App.css'
 
 function App() {
-  const [geoPosition, setGeoPosition] = useState(null);
-  const [extraCountryInfo, setExtraCountryInfo] = useState(null);
-  const [spinnerEnabled, setSpinnerEnabled] = useState(false);
-  const [myLocationData, setMyLocationData] = useState(null);
- 
-  useEffect(() => {
-    const fetchLocationInfo = async () => {
-      console.log("test");
-      let getCurrentCountry = "";
-      setSpinnerEnabled(true);
-      try {
-        const { REACT_APP_API_KEY } = process.env;
-        const getMyLocation = await axios(
-          `https://geo.ipify.org/api/v1?apiKey=${REACT_APP_API_KEY}`
-        );
-        getCurrentCountry = getMyLocation.data.location.country;
-        setMyLocationData(getMyLocation);
-        setGeoPosition(getMyLocation.data.location);
-        console.log(getMyLocation);
-      } catch (error) {
-        console.log(error.message);
-      }
-      try {
-        const getExtraCountryData = await axios(
-          `https://restcountries.eu/rest/v2/name/${getCurrentCountry}?fullText=true`
-        );
-        setExtraCountryInfo(getExtraCountryData);
-      } catch (error) {
-        console.log(error.message);
-      }
-      setSpinnerEnabled(false);
-    };
-    fetchLocationInfo();
-  }, []);
+  const [coordinates, setCoordinates] = useState({ longitude: 0, latitude: 0 })
+  // const [userMarker, setUserMarker] = useState({ longitude: 0, latitude: 0 });
+  const [extraCountryInfo, setExtraCountryInfo] = useState(null)
+  const [spinnerEnabled, setSpinnerEnabled] = useState(false)
+  const [positionData, setPositionData] = useState(null)
 
-  
+  useEffect(() => {
+    const getPositionByBrowser = () => {
+      const error = () => {}
+      const option = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 10000,
+      }
+
+      if (!navigator.geolocation) {
+        window.message('Geolocation is not supported by your browser')
+      } else {
+        try {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              setCoordinates({
+                longitude: position.coords.longitude,
+                latitude: position.coords.latitude,
+              })
+              // setUserMarker({
+              //   longitude: position.coords.longitude,
+              //   latitude: position.coords.latitude,
+              // });
+            },
+            error,
+            option
+          )
+        } catch {
+          console.log(error.message)
+        }
+      }
+    }
+    getPositionByBrowser()
+  }, [])
+
+  useEffect(() => {
+    const nameOfPosition = async () => {
+      setSpinnerEnabled(true)
+      let geoReverseResults
+
+      try {
+        const { REACT_APP_GeoIpFy_API_KEY } = process.env
+        const { latitude } = coordinates
+        const { longitude } = coordinates
+        geoReverseResults = await axios(
+          `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&limit=1&apiKey=${REACT_APP_GeoIpFy_API_KEY}`
+        )
+        setPositionData(geoReverseResults.data.features[0])
+      } catch (error) {
+        console.log(error.message)
+      }
+
+      try {
+        const { country } = geoReverseResults.data.features[0].properties
+        // console.log(country);
+        const extraCountryData = await axios(
+          `https://restcountries.eu/rest/v2/name/${country}?fullText=true`
+        )
+        setExtraCountryInfo(extraCountryData)
+      } catch (error) {
+        // console.log(error.message);
+        // alert("This place has no specific information. Choose a populated region for better results. ")
+      }
+      setSpinnerEnabled(false)
+    }
+    coordinates.latitude !== 0 &&
+      coordinates.longitude !== 0 &&
+      nameOfPosition()
+  }, [coordinates])
+
+  // console.log(coordinates !== userMarker);
   return (
     <div className="App">
-      <div id="wrapper">
-        {extraCountryInfo && myLocationData && (
-          <Card
+      {positionData && extraCountryInfo && (
+        <InfoWindow
+          positionData={positionData}
           extraCountryInfo={extraCountryInfo}
-          myLocationData={myLocationData}
-          geoPosition={geoPosition}
-          setGeoPosition={setGeoPosition}
-          ></Card>
-        )}
-        {spinnerEnabled && <Spinner animation="border" />}
-        {geoPosition && <Body geoPosition={geoPosition} />}
-      </div>
+        />
+      )}
+      {spinnerEnabled && <Spinner animation="border" />}
+      {coordinates && (
+        <MapBox coordinates={coordinates} setCoordinates={setCoordinates} />
+      )}
     </div>
-  );
+  )
 }
-
-export default App;
+export default App

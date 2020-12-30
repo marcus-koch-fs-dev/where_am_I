@@ -1,1 +1,1 @@
-Based on your IP address, your location is determined and additional country information are displayed. If the precision of the IP-based localization is not sufficient, you can switch to the browser localization.
+Load this page, actived browser localiation and see your position on the map. Additionally you get some country infoomration.
