@@ -6,23 +6,15 @@ import ReactMapboxGl, {
   RotationControl,
 } from 'react-mapbox-gl'
 import { config } from '../config'
-import 'mapbox-gl/dist/mapbox-gl.css'
+// import 'mapbox-gl/dist/mapbox-gl.css'
 
 export default function MapBoxContainer(props) {
-  // const { KEY_A } = config.mapbox.KeyA
-
   const { KeyA } = config.mapbox
   const { KeyB } = config.mapbox
   const { KeyC } = config.mapbox
   const { setCoordinates } = props
   const latMap = props.coordinates.latitude
   const lngMap = props.coordinates.longitude
-  // const latMarker = props.userMarker.latitude
-  // const lngMarker = props.userMarker.longitude
-  // console.log("MapBox",props.coordinates,latMap,lngMap,latMarker,lngMarker);
-  console.log('Key', KeyA === undefined)
-  console.log('Key', KeyB === undefined)
-  console.log('Key', KeyC === undefined)
 
   const Map = ReactMapboxGl({
     accessToken: `${KeyA}.${KeyB}.${KeyC}`,
@@ -30,43 +22,42 @@ export default function MapBoxContainer(props) {
 
   return (
     <>
-      <Map
-        style="mapbox://styles/mapbox/streets-v11"
-        containerStyle={{
-          height: '45vh',
-          width: '60vw',
-          opacity: '0.85',
-        }}
-        onClick={(map, clickedCoordinates) => {
-          // console.log(clickedCoordinates)
-          setCoordinates({
-            longitude: clickedCoordinates.lngLat.lng,
-            latitude: clickedCoordinates.lngLat.lat,
-          })
-        }}
-        center={[lngMap, latMap]} // starting position [lng, lat]A
-        scrollZoom={true}
-        zooming={true}
-        zoom={[14]} // starting zoom
-      >
-        <ScaleControl />
-        <ZoomControl />
-        <RotationControl />
-        <Marker
-          className="marker-my-position"
-          captureClick="true"
-          coordinates={[lngMap, latMap]}
-          anchor="bottom"
+      {props.coordinates && (
+        <Map
+          style="mapbox://styles/mapbox/streets-v11"
+          containerStyle={{
+            height: '45vh',
+            width: '60vw',
+            opacity: '0.85',
+          }}
+          onClick={(Map, clickedCoordinates) => {
+            setCoordinates({
+              longitude: clickedCoordinates.lngLat.lng,
+              latitude: clickedCoordinates.lngLat.lat,
+            })
+          }}
+          center={[lngMap, latMap]} // starting position [lng, lat]A
+          zoom={[14]} // starting zoom
         >
-          <img
-            src={
-              'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png'
-            }
-            alt="marker"
-            height="30vh"
-          />
-        </Marker>
-      </Map>
+          <ScaleControl />
+          <ZoomControl />
+          <RotationControl />
+          <Marker
+            className="marker-my-position"
+            captureClick="true"
+            coordinates={[lngMap, latMap]}
+            anchor="bottom"
+          >
+            <img
+              src={
+                'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png'
+              }
+              alt="marker"
+              height="30vh"
+            />
+          </Marker>
+        </Map>
+      )}
       ;
     </>
   )

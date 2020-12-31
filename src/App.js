@@ -8,7 +8,6 @@ import './App.css'
 
 function App() {
   const [coordinates, setCoordinates] = useState({ longitude: 0, latitude: 0 })
-  // const [userMarker, setUserMarker] = useState({ longitude: 0, latitude: 0 });
   const [extraCountryInfo, setExtraCountryInfo] = useState(null)
   const [spinnerEnabled, setSpinnerEnabled] = useState(false)
   const [positionData, setPositionData] = useState(null)
@@ -18,8 +17,8 @@ function App() {
       const error = () => {}
       const option = {
         enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 10000,
+        maximumAge: 4000,
+        timeout: 6000,
       }
 
       if (!navigator.geolocation) {
@@ -32,10 +31,6 @@ function App() {
                 longitude: position.coords.longitude,
                 latitude: position.coords.latitude,
               })
-              // setUserMarker({
-              //   longitude: position.coords.longitude,
-              //   latitude: position.coords.latitude,
-              // });
             },
             error,
             option
@@ -55,7 +50,6 @@ function App() {
 
       try {
         const { Key } = config.geoIpFy
-        console.log('Key', Key === undefined)
         const { latitude } = coordinates
         const { longitude } = coordinates
         geoReverseResults = await axios(
@@ -68,14 +62,12 @@ function App() {
 
       try {
         const { country } = geoReverseResults.data.features[0].properties
-        // console.log(country);
         const extraCountryData = await axios(
           `https://restcountries.eu/rest/v2/name/${country}?fullText=true`
         )
         setExtraCountryInfo(extraCountryData)
       } catch (error) {
-        // console.log(error.message);
-        // alert("This place has no specific information. Choose a populated region for better results. ")
+        console.log(error.message)
       }
       setSpinnerEnabled(false)
     }
@@ -84,7 +76,6 @@ function App() {
       nameOfPosition()
   }, [coordinates])
 
-  // console.log(coordinates !== userMarker);
   return (
     <div className="App">
       {positionData && extraCountryInfo && (
