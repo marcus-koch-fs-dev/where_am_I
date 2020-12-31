@@ -6,6 +6,7 @@
   --font-size-h1: 1.5rem;
   --font-size-h3: 1.2rem;
   --font-size-p: 0.9rem;
+  margin: 0;
 }
 
 .App {
