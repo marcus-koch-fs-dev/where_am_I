@@ -9,13 +9,14 @@ h3 {
 }
 
 p,
-span {
+span,
+img {
   font-size: var(--font-size-p);
 }
 
 span {
   font-style: italic;
-  color: rgb(231, 111, 31);
+  color: #e76f1f;
 }
 
 .infoWindow-wrapper {
