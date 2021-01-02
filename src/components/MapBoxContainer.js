@@ -6,7 +6,6 @@ import ReactMapboxGl, {
   RotationControl,
 } from 'react-mapbox-gl'
 import { config } from '../config'
-// import 'mapbox-gl/dist/mapbox-gl.css'
 
 export default function MapBoxContainer(props) {
   const { KeyA } = config.mapbox
@@ -24,10 +23,11 @@ export default function MapBoxContainer(props) {
     <>
       {props.coordinates && (
         <Map
+          className="mapBox"
           style="mapbox://styles/mapbox/streets-v11"
           containerStyle={{
             height: '45vh',
-            width: '60vw',
+            width: '90%',
             opacity: '0.85',
           }}
           onClick={(Map, clickedCoordinates) => {
