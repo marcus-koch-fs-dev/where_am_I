@@ -5,9 +5,9 @@ import ReactMapboxGl, {
   ZoomControl,
   RotationControl,
 } from 'react-mapbox-gl'
-import { config } from '../config'
+import { config } from '../config/config'
 
-export default function MapBoxContainer(props) {
+const MapBoxCard = (props) => {
   const { KeyA } = config.mapbox
   const { KeyB } = config.mapbox
   const { KeyC } = config.mapbox
@@ -23,8 +23,8 @@ export default function MapBoxContainer(props) {
     <>
       {props.coordinates && (
         <Map
-          className="mapBox"
-          style="mapbox://styles/mapbox/streets-v11"
+          className='mapBox'
+          style='mapbox://styles/mapbox/streets-v11'
           containerStyle={{
             height: '45vh',
             width: '90%',
@@ -43,17 +43,17 @@ export default function MapBoxContainer(props) {
           <ZoomControl />
           <RotationControl />
           <Marker
-            className="marker-my-position"
-            captureClick="true"
+            className='marker-my-position'
+            captureClick='true'
             coordinates={[lngMap, latMap]}
-            anchor="bottom"
+            anchor='bottom'
           >
             <img
               src={
                 'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png'
               }
-              alt="marker"
-              height="30vh"
+              alt='marker'
+              height='30vh'
             />
           </Marker>
         </Map>
@@ -62,3 +62,5 @@ export default function MapBoxContainer(props) {
     </>
   )
 }
+
+export default MapBoxCard

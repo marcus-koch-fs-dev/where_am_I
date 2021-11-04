@@ -1,7 +1,7 @@
 import React from 'react'
 import './InfoWindow.css'
 
-export default function InfoWindow(props) {
+const InfoCard = (props) => {
   const { mode, IP_Info } = props.searchByIp
   const {
     housenumber,
@@ -23,7 +23,7 @@ export default function InfoWindow(props) {
   } = props.extraCountryInfo.data[0]
 
   return (
-    <div className="infoWindow-wrapper">
+    <div className='infoWindow-wrapper'>
       <h1>Where am I?</h1>
       <h3>Welcome visitor, here are some info about your position.</h3>
       <h3>Click around to get more...</h3>
@@ -51,7 +51,8 @@ export default function InfoWindow(props) {
         Calling code: <span>{callingCodes}</span> | Population:{' '}
         <span>{population}</span> | Area: <span>{area}km²</span>
       </p>
-      <img className="countryFlag" src={`${flag}`} alt="Flag n/d" />
+      <img className='countryFlag' src={`${flag}`} alt='Flag n/d' />
     </div>
   )
 }
+export default InfoCard
