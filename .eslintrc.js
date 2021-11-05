@@ -34,6 +34,9 @@ module.exports = {
     'react/prop-types': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    eqeqeq: ['warn', 'smart']
-  }
+    eqeqeq: ['warn', 'smart'],
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error'
+  },
+  plugins: ['simple-import-sort']
 }
