@@ -1,6 +1,5 @@
 import './Home.css'
-import { InfoCard } from '../../components/index'
-import { MapBoxCard } from '../../components/mapBox/index'
+import { InfoCard, MapBoxCard } from '../../components'
 
 const Home = () => {
   return (
