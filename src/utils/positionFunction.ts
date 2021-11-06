@@ -1,4 +1,6 @@
+import { GeoPositionByBrowser } from './types/positionTypes'
 import { isDevMode } from './helperFunctions'
+// import { isDevMode } from './helperFunctions'
 import axios from 'axios'
 
 // export const Search = async () => {
@@ -22,7 +24,7 @@ import axios from 'axios'
 //     }
 //   }
 
-/* 
+/** 
     Deliver base information of a global country 
 */
 export const getCurrentPosition = async (
@@ -37,12 +39,12 @@ export const getCurrentPosition = async (
     )
     return data
   } catch (error) {
-    isDevMode && console.error(error)
+    isDevMode() && console.error(error)
     return {}
   }
 }
 
-/* 
+/**  
     Deliver base information of a country in EU
 */
 export const getCountryInformation = async (country: string): Promise<any> => {
@@ -52,32 +54,27 @@ export const getCountryInformation = async (country: string): Promise<any> => {
     )
     return data
   } catch (error) {
-    isDevMode && console.error(error)
+    isDevMode() && console.error(error)
     return {}
   }
 }
 
-export const getPositionByBrowser = async (): Promise<any> => {
-  const success = (data) => data
+export const getPositionByBrowser = async (
+  cb: (browserData: GeoPositionByBrowser) => void
+) => {
+  if (!navigator.geolocation) return
 
-  const error = (err) => err
-  // alert('Please activate your geolocation service')
-  const option = {
+  const options = {
     enableHighAccuracy: true,
     maximumAge: 5000,
     timeout: 6000
   }
 
-  if (!navigator.geolocation) {
-    // alert('Geolocation is not supported by your browser')
-    // setSearchByIp({ ...searchByIp, [status]: true })
-  } else {
-    try {
-      await navigator.geolocation.getCurrentPosition(success, error, option)
-      return success
-    } catch (error) {
-      isDevMode && console.error(error)
-      return {}
-    }
-  }
+  await navigator.geolocation.getCurrentPosition(
+    (newPositionData: GeoPositionByBrowser) => {
+      cb(newPositionData)
+    },
+    (error) => error,
+    options
+  )
 }
