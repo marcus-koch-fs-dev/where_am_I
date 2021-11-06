@@ -29,14 +29,12 @@ module.exports = {
     'plugin:prettier/recommended' // Make this the last element so prettier config overrides other formatting rules
   ],
   rules: {
-    'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Use our .prettierrc file as source
+    // 'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Use our .prettierrc file as source
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    eqeqeq: ['warn', 'smart'],
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error'
-  },
-  plugins: ['simple-import-sort']
+    eqeqeq: ['warn', 'smart']
+  }
 }
