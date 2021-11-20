@@ -1,4 +1,2 @@
-import InfoCard from './InfoCard'
-export * from './mapBox'
-
-export { InfoCard }
+export * from './infoCard/index'
+export * from './map/index'

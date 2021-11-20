@@ -1,7 +1,8 @@
-import { GeoPositionByBrowser } from './types/positionTypes'
-import { isDevMode } from './helperFunctions'
-// import { isDevMode } from './helperFunctions'
+// Modules
 import axios from 'axios'
+import { isDevMode } from './helperFunctions'
+// Types
+import { GeoPositionByBrowser } from '../types/positionTypes'
 
 // export const Search = async () => {
 //     try {

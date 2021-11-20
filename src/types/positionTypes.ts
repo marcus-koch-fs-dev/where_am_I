@@ -1,5 +1,3 @@
-export type TypeOfUnit = number | null
-
 export interface GeoCoordinatesByBrowser {
   accuracy?: number | null
   altitude?: number | null
@@ -13,4 +11,9 @@ export interface GeoCoordinatesByBrowser {
 export interface GeoPositionByBrowser {
   coords: GeoCoordinatesByBrowser
   timestamp?: number
+}
+
+export type Coords = {
+  lat: number
+  lng: number
 }

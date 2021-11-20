@@ -1,6 +1,6 @@
 import './InfoWindow.css'
 
-const InfoCard = () => {
+export const InfoCard = () => {
   return (
     <div className="infoWindow-wrapper">
       {/* <h1>Where am I?</h1>
@@ -34,4 +34,3 @@ const InfoCard = () => {
     </div>
   )
 }
-export default InfoCard

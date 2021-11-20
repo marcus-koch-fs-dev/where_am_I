@@ -1,4 +1,4 @@
-@import '../App.css';
+@import '../../App.css';
 
 h1 {
   font-size: var(--font-size-h1);

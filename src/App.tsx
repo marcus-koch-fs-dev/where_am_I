@@ -1,11 +1,6 @@
-import dotenv from 'dotenv'
-import { useState, useEffect } from 'react'
 import './App.css'
-import ScaleLoader from 'react-spinners/ScaleLoader'
-import { getPositionByBrowser } from './utils/positionFunction'
+// import ScaleLoader from 'react-spinners/ScaleLoader'
 import { Home } from './views'
-
-dotenv.config()
 
 const App = () => {
   return (
