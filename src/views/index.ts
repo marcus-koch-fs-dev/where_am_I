@@ -1,1 +1,1 @@
-export * from './home/index'
+export * from './landingPage/index'
