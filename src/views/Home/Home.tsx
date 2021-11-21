@@ -5,7 +5,7 @@ import { getPositionByBrowser } from 'utils/positionFunction'
 // Types
 import type { GeoPositionByBrowser, Coords } from '../../types/positionTypes'
 
-export const Home = () => {
+const Home = () => {
   const [isMapLoaded, setIsMapLoaded] = useState<boolean>(false)
   const [homeCoordinates, setHomeCoordinates] = useState<Coords>({
     lat: 0,
