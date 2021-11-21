@@ -21,8 +21,8 @@ const MapBox = ({ homeCoords }: MapBoxProps) => {
     lat: homeCoords.lat,
     lng: homeCoords.lng
   })
-
-  const [zoom, setZoom] = useState<number>(8)
+  //! temporary deactivated
+  //   const [zoom, setZoom] = useState<number>(8)
   const urlMarker =
     'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png'
 
@@ -34,8 +34,8 @@ const MapBox = ({ homeCoords }: MapBoxProps) => {
     })
   }
 
-  const onZoomEndHandler = (map: { getZoom: () => number }) =>
-    setZoom(parseInt(map.getZoom().toFixed(2), 16))
+  //   const onZoomEndHandler = (map: { getZoom: () => number }) =>
+  //     setZoom(parseInt(map.getZoom().toFixed(2), 16))
 
   const onClickHandler = (_, posData) => {
     const { lngLat } = posData
@@ -57,7 +57,7 @@ const MapBox = ({ homeCoords }: MapBoxProps) => {
           opacity: '0.9'
         }}
         onClick={onClickHandler}
-        onZoomEnd={onZoomEndHandler} // starting position [lng, lat]A
+        // onZoomEnd={onZoomEndHandler}
       >
         <ScaleControl />
         <ZoomControl />

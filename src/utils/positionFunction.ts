@@ -2,8 +2,9 @@
 import axios from 'axios'
 import { isDevMode } from './helperFunctions'
 // Types
-import { GeoPositionByBrowser } from '../types/positionTypes'
+import { Coords, GeoPositionByBrowser } from '../types/positionTypes'
 
+//! temporary deactivated
 // export const Search = async () => {
 //     try {
 //       const { Key } = config.ipIfy
@@ -31,7 +32,7 @@ import { GeoPositionByBrowser } from '../types/positionTypes'
 export const getCurrentPosition = async (
   latitude: number,
   longitude: number
-): Promise<any> => {
+): Promise<Coords | null> => {
   const { REACT_APP_ApiKey_IpIfy } = process.env
 
   try {
@@ -41,24 +42,25 @@ export const getCurrentPosition = async (
     return data
   } catch (error) {
     isDevMode() && console.error(error)
-    return {}
+    return null
   }
 }
 
 /**  
     Deliver base information of a country in EU
 */
-export const getCountryInformation = async (country: string): Promise<any> => {
-  try {
-    const { data } = await axios(
-      `https://restcountries.eu/rest/v2/name/${country}`
-    )
-    return data
-  } catch (error) {
-    isDevMode() && console.error(error)
-    return {}
-  }
-}
+//! temporary deactivated
+// export const getCountryInformation = async (country: string): Promise<any> => {
+//   try {
+//     const { data } = await axios(
+//       `https://restcountries.eu/rest/v2/name/${country}`
+//     )
+//     return data
+//   } catch (error) {
+//     isDevMode() && console.error(error)
+//     return {}
+//   }
+// }
 
 export const getPositionByBrowser = async (
   cb: (browserData: GeoPositionByBrowser) => void
