@@ -1,6 +1,6 @@
 import './Home.css'
 import { useEffect, useState } from 'react'
-import { InfoCard, MapBox } from '../../components'
+import { MapBox } from '../../components'
 import { getPositionByBrowser } from 'utils/positionFunction'
 // Types
 import type { GeoPositionByBrowser, Coords } from '../../types/positionTypes'
@@ -28,7 +28,6 @@ const Home = () => {
 
   return (
     <div className="home-wrapper">
-      {/* <InfoCard /> */}
       {isMapLoaded && <MapBox homeCoords={homeCoordinates} />}
     </div>
   )

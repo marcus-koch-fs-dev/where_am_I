@@ -2,7 +2,7 @@
 import axios from 'axios'
 import { isDevMode } from './helperFunctions'
 // Types
-import { GeoPositionByBrowser } from '../types/positionTypes'
+import { Coords, GeoPositionByBrowser } from '../types/positionTypes'
 
 // export const Search = async () => {
 //     try {
@@ -31,7 +31,7 @@ import { GeoPositionByBrowser } from '../types/positionTypes'
 export const getCurrentPosition = async (
   latitude: number,
   longitude: number
-): Promise<any> => {
+): Promise<Coords | null> => {
   const { REACT_APP_ApiKey_IpIfy } = process.env
 
   try {
@@ -41,7 +41,7 @@ export const getCurrentPosition = async (
     return data
   } catch (error) {
     isDevMode() && console.error(error)
-    return {}
+    return null
   }
 }
 
