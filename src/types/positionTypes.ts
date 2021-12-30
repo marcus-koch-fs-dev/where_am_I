@@ -13,7 +13,7 @@ export interface GeoPositionByBrowser {
   timestamp?: number
 }
 
-export type Coords = {
-  lat: number
-  lng: number
+export interface Coordinates {
+  latitude: number
+  longitude: number
 }
