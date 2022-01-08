@@ -1,15 +1,16 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import ReactMapboxGl, {
   Marker,
   ScaleControl,
   ZoomControl,
   RotationControl
 } from 'react-mapbox-gl'
-
-import { Coords } from '../../types/positionTypes'
+import './MapBox.css'
+import { Coordinates } from '../../types/positionTypes'
+import { PositionContext } from 'context/positionContext'
 
 export interface MapBoxProps {
-  homeCoords: Coords
+  homeCoords: Coordinates
 }
 
 const Map = ReactMapboxGl({
@@ -17,33 +18,39 @@ const Map = ReactMapboxGl({
 })
 
 const MapBox = ({ homeCoords }: MapBoxProps) => {
-  const [currentCoordinates, setCurrentCoordinates] = useState<Coords>({
-    lat: homeCoords.lat,
-    lng: homeCoords.lng
+  const { onClick } = useContext(PositionContext)
+  const [currentCoordinates, setCurrentCoordinates] = useState<Coordinates>({
+    latitude: homeCoords.latitude,
+    longitude: homeCoords.longitude
   })
   //! temporary deactivated
   //   const [zoom, setZoom] = useState<number>(8)
+
+  //   const onZoomEndHandler = (map: { getZoom: () => number }) =>
+  //     setZoom(parseInt(map.getZoom().toFixed(2), 16))
+
   const urlMarker =
     'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png'
 
   const onStyleLoadHandler = (map) => {
     map.setZoom(14)
     map.setCenter({
-      lat: currentCoordinates.lat,
-      lng: currentCoordinates.lng
+      lat: currentCoordinates.latitude,
+      lng: currentCoordinates.longitude
     })
   }
-
-  //   const onZoomEndHandler = (map: { getZoom: () => number }) =>
-  //     setZoom(parseInt(map.getZoom().toFixed(2), 16))
 
   const onClickHandler = (_, posData) => {
     const { lngLat } = posData
 
     setCurrentCoordinates({
-      lat: lngLat.lat.toFixed(5),
-      lng: lngLat.lng.toFixed(5)
-    })
+      latitude: lngLat.lat.toFixed(5),
+      longitude: lngLat.lng.toFixed(5)
+    }),
+      onClick({
+        latitude: lngLat.lat.toFixed(5),
+        longitude: lngLat.lng.toFixed(5)
+      })
   }
 
   return (
@@ -64,7 +71,10 @@ const MapBox = ({ homeCoords }: MapBoxProps) => {
         <RotationControl />
         <Marker
           className="marker-my-position"
-          coordinates={[currentCoordinates.lng, currentCoordinates.lat]}
+          coordinates={[
+            currentCoordinates.longitude,
+            currentCoordinates.latitude
+          ]}
           anchor="bottom">
           <img src={urlMarker} alt="marker" height="30vh" />
         </Marker>

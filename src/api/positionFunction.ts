@@ -1,23 +1,23 @@
 // Modules
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { isDevMode } from '../utils/helperFunctions'
 // Types
 import { Coordinates, GeoPositionByBrowser } from '../types/positionTypes'
+import { DataReverseGeoCode } from './../types/apiTypes'
 
-export const getPositionInfo = async (
-  coord: Coordinates
-): Promise<any> | undefined => {
+export const getPositionInfo = async (coord: Coordinates): Promise<any> => {
   const { latitude, longitude } = coord
-  const { REACT_APP_ApiKey_ReversGeoCode } = process.env
+  const { REACT_APP_ApiKey_ReverseGeoCode } = process.env
+
   try {
-    const { data } = await axios(
-      `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${REACT_APP_ApiKey_ReversGeoCode}`
+    const { data }: AxiosResponse<DataReverseGeoCode> = await axios(
+      `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${REACT_APP_ApiKey_ReverseGeoCode}`
     )
     return data
   } catch (error) {
     isDevMode() && console.error(error)
     // Default value need to be set
-    return undefined
+    return null
   }
 }
 

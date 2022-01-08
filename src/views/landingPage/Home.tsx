@@ -1,15 +1,17 @@
 import './Home.css'
 import { useEffect, useState } from 'react'
-import { MapBox } from '../../components'
-import { getPositionByBrowser } from 'utils/positionFunction'
-// Types
-import type { GeoPositionByBrowser, Coords } from '../../types/positionTypes'
+import { InfoCard, MapBox } from '../../components'
+import { getPositionByBrowser } from '../../api'
+import type {
+  GeoPositionByBrowser,
+  Coordinates
+} from '../../types/positionTypes'
 
 const Home = () => {
   const [isMapLoaded, setIsMapLoaded] = useState<boolean>(false)
-  const [homeCoordinates, setHomeCoordinates] = useState<Coords>({
-    lat: 0,
-    lng: 0
+  const [homeCoordinates, setHomeCoordinates] = useState<Coordinates>({
+    latitude: 0,
+    longitude: 0
   })
 
   useEffect(() => {
@@ -19,8 +21,8 @@ const Home = () => {
       if (latitude === null || longitude === null) return
 
       setHomeCoordinates({
-        lat: latitude,
-        lng: longitude
+        latitude: latitude,
+        longitude: longitude
       })
       setIsMapLoaded(true)
     })
@@ -28,7 +30,12 @@ const Home = () => {
 
   return (
     <div className="home-wrapper">
-      {isMapLoaded && <MapBox homeCoords={homeCoordinates} />}
+      {isMapLoaded && (
+        <>
+          <InfoCard />
+          <MapBox homeCoords={homeCoordinates} />
+        </>
+      )}
     </div>
   )
 }
