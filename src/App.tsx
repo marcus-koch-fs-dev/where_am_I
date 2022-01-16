@@ -1,19 +1,17 @@
-import './App.css'
-// import ScaleLoader from 'react-spinners/ScaleLoader'
+import './App.scss'
+import { PositionContext } from './context/positionContext'
+import { usePosition } from './hooks/usePosition'
 import { Home } from './views'
 
 const App = () => {
-  return (
-    <div className="App">
-      <Home />
+  const { coordinates, setCoordinates } = usePosition()
 
-      {/* <ScaleLoader
-        className="spinner"
-        loading={spinnerEnabled}
-        color="firebrick"
-        radius="5vh"
-      /> */}
-    </div>
+  return (
+    <PositionContext.Provider value={{ coordinates, setCoordinates }}>
+      <div className="app">
+        <Home />
+      </div>
+    </PositionContext.Provider>
   )
 }
 export default App

@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;1,300;1,400&display=swap');
+@import './mixins';
+
+// Breakpoints media devices: max sizes
+$mobile: 425px; //360 small mobile
+$tablet: 768px;
+$laptop: 1240px;
+$desktop-lg: 1800px;
+
+// Font families
+$font-family-OpenSans: 'Nunito', sans-serif;
+
+@include mobile {
+  h1 {
+    font-size: 1.2rem;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+}
+
+@include tablet {
+  h1 {
+    font-size: 1.3rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+  }
+}
+
+@include laptop {
+  h1 {
+    font-size: 1.3rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+  }
+}
