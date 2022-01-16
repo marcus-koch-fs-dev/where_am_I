@@ -1,0 +1,134 @@
+@import '../../assets/sass/base';
+
+.infoCard {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: rgba(189, 191, 206, 0.808);
+    font-family: 'Nunito', 'Roboto', sans-serif;
+    // border: red 1px solid;
+    padding: 0.5rem;
+    margin: 1rem;
+    height: calc(100% - 2rem);
+    border-radius: 1rem;
+  }
+}
+
+.header {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 1rem 0;
+  }
+  &__h1 {
+    font-weight: bold;
+    margin: 0;
+  }
+  &__h3 {
+    margin: 0;
+  }
+}
+
+.countryFlag {
+  &__wrapper {
+    max-width: 20%;
+    margin: 1rem 0 0.5rem 0;
+  }
+  &__img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.main {
+  &__h3 {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 1rem 0;
+    span {
+      &:first-child {
+        padding: 0 1rem 0 0;
+      }
+    }
+  }
+}
+
+.table {
+  &-secondary {
+    padding: 0.5rem 1rem;
+    &__td {
+      &:first-child {
+        padding: 0 2rem 0 0;
+      }
+    }
+  }
+}
+
+@include mobile {
+  .infoCard {
+    &__wrapper {
+      padding: 0.25rem;
+      margin: 0.5rem;
+      border-radius: 0.5rem;
+      height: min-content;
+    }
+  }
+  .header {
+    &__wrapper {
+      margin: 0 0 0.5rem 0;
+    }
+  }
+  .countryFlag {
+    &__wrapper {
+      width: 40px;
+      margin: 0.5rem 0 0 0;
+    }
+  }
+  .main {
+    &__h3 {
+      margin: 0 0 0.2rem 0;
+    }
+  }
+  .table {
+    &-secondary {
+      line-height: 0.9rem;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
+@include tablet {
+  .infoCard {
+    &__wrapper {
+      padding: 0.25rem;
+      margin: 0.5rem;
+      border-radius: 0.5rem;
+      height: min-content;
+    }
+  }
+  .header {
+    &__wrapper {
+      margin: 0 0 0.5rem 0;
+    }
+  }
+  .countryFlag {
+    &__wrapper {
+      width: 60px;
+      margin: 0.5rem 0 0 0;
+    }
+  }
+  .main {
+    &__h3 {
+      margin: 0 0 0.2rem 0;
+    }
+  }
+  .table {
+    &-secondary {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}

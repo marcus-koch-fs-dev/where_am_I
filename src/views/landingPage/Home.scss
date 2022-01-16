@@ -1,0 +1,49 @@
+@import '../../assets/sass/base';
+
+.loader {
+  display: flex;
+  justify-content: center;
+  padding-top: 5em;
+}
+
+.home {
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: minmax(15em, auto);
+    grid-template-areas: 'ic mb mb mb mb';
+    height: 100%;
+  }
+  &__infoBox {
+    grid-area: ic;
+  }
+  &__mapBox {
+    grid-area: mb;
+    display: flex;
+    justify-content: center;
+  }
+
+  // *************************
+  // Media queries breakpoints
+  // *************************
+
+  @include mobile {
+    &__wrapper {
+      grid-template-columns: repeat(1, 1fr);
+      grid-auto-rows: 260px auto;
+      grid-template-areas:
+        'ic'
+        'mb';
+    }
+  }
+
+  @include tablet {
+    &__wrapper {
+      grid-template-columns: repeat(1, 1fr);
+      grid-auto-rows: 300px auto;
+      grid-template-areas:
+        'ic'
+        'mb';
+    }
+  }
+}

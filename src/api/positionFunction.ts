@@ -5,7 +5,9 @@ import { isDevMode } from '../utils/helperFunctions'
 import { Coordinates, GeoPositionByBrowser } from '../types/positionTypes'
 import { DataReverseGeoCode } from './../types/apiTypes'
 
-export const getPositionInfo = async (coord: Coordinates): Promise<any> => {
+export const getPositionInfo = async (
+  coord: Coordinates
+): Promise<DataReverseGeoCode | undefined> => {
   const { latitude, longitude } = coord
   const { REACT_APP_ApiKey_ReverseGeoCode } = process.env
 
@@ -16,8 +18,7 @@ export const getPositionInfo = async (coord: Coordinates): Promise<any> => {
     return data
   } catch (error) {
     isDevMode() && console.error(error)
-    // Default value need to be set
-    return null
+    return undefined
   }
 }
 

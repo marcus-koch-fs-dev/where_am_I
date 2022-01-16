@@ -8,7 +8,7 @@ const PositionContext = createContext<PositionContextProps>({
     longitude: 0
   },
 
-  onClick: (coords: Coordinates) => coords
+  setCoordinates: (coords: Coordinates) => coords
 })
 
 export { PositionContext }

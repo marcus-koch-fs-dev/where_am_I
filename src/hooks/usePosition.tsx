@@ -10,7 +10,7 @@ const usePosition = () => {
     setUserSelectCoords(coords)
   }
 
-  return { coordinates: userSelectCoords, onClick: handleSelectedCoords }
+  return { coordinates: userSelectCoords, setCoordinates: handleSelectedCoords }
 }
 
 export { usePosition }

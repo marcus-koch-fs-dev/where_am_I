@@ -1,16 +1,7 @@
-// import './InfoWindow.css'
+import './InfoCard.scss'
 import { getPositionInfo } from '../../api'
 import { useContext, useEffect, useState } from 'react'
 import { DataReverseGeoCode } from 'types/apiTypes'
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  List,
-  ListItem,
-  Typography
-} from '@mui/material'
 import { PositionContext } from 'context/positionContext'
 
 export const InfoCard = () => {
@@ -20,16 +11,16 @@ export const InfoCard = () => {
   useEffect(() => {
     if (!coordinates) return
     getPositionInfo(coordinates)
-      .then((data: DataReverseGeoCode) => {
-        console.log('res', data)
-        setPositionInfo(data)
+      .then((data: DataReverseGeoCode | undefined) => {
+        if (data) {
+          setPositionInfo(data)
+        }
       })
       .catch((err) => console.error(err))
   }, [coordinates])
 
   const renderInfoCard = (positionInfo: DataReverseGeoCode) => {
     const { features } = positionInfo
-
     return features.map((item) => {
       const {
         address_line1,
@@ -40,72 +31,59 @@ export const InfoCard = () => {
         state,
         county,
         district,
-        subUrb,
         lat,
         lon,
         place_id
       } = item.properties
-
       return (
-        <Card key={place_id}>
-          <CardActionArea>
-            <Typography sx={{ fontSize: '0.5' }}>Where am I?</Typography>
-            <CardMedia
-              component="img"
-              height="60"
-              image={`https://flagcdn.com/${country_code}.svg`}
-              alt={country}
-            />
-            <CardContent>
-              <Typography sx={{ fontSize: '0.5' }}>
-                {`${address_line1}`}
-              </Typography>
-              <Typography sx={{ fontSize: '0.5' }}>
-                {`${postcode} ${city}, ${country}`}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                <List>
-                  <h3>{`Lat: ${lat.toFixed(3)} Lng: ${lon.toFixed(3)}`}</h3>
-                  <ListItem>{`Country: ${country}`}</ListItem>
-                  <ListItem>{`State: ${state}`}</ListItem>
-                  <ListItem>{`County: ${county}`}</ListItem>
-                  <ListItem>{`District: ${district}`}</ListItem>
-                </List>
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
+        <div className="infoCard__wrapper" key={place_id}>
+          <header className="header__wrapper">
+            <h1 className="header__h1">Where am I?</h1>
+            <div className="countryFlag__wrapper">
+              <img
+                className="countryFlag__img"
+                src={`https://flagcdn.com/${country_code}.svg`}
+                alt="country_flag"
+              />
+            </div>
+            <h3 className="header__h3">{`${country}`}</h3>
+          </header>
+          <main className="main__wrapper">
+            <h3 className="main__h3">
+              <span>{`Lat: ${lat.toFixed(3)}`}</span>
+              <span>{`Lng: ${lon.toFixed(3)}`}</span>
+            </h3>
+            <table className="table-primary">
+              <tbody>
+                <tr className="table-primary__row">
+                  <td className="table-primary__td">{`${address_line1}`}</td>
+                </tr>
+                <tr className="table-primary__row">
+                  <td className="table-primary__td">{`${postcode} ${city}`}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table className="table-secondary">
+              <tbody>
+                <tr className="table-secondary__row">
+                  <td className="table-secondary__td">State:</td>
+                  <td className="table-secondary__td">{`${state}`}</td>
+                </tr>
+                <tr className="table-secondary__row">
+                  <td className="table-secondary__td">County:</td>
+                  <td className="table-secondary__td">{`${county}`}</td>
+                </tr>
+                <tr className="table-secondary__row">
+                  <td className="table-secondary__td">District:</td>
+                  <td className="table-secondary__td">{`${district}`}</td>
+                </tr>
+              </tbody>
+            </table>
+          </main>
+        </div>
       )
     })
   }
 
   return <>{positionInfo && renderInfoCard(positionInfo)}</>
 }
-//* template from previous version
-/* <h3>Welcome visitor, here are some info about your position.</h3>
-      <h3>Click around to get more...</h3>
-      <p>
-      Locating by: <span>{mode}</span> | IP-Info: <span>{IP_Info}</span>
-      </p>
-      <p>
-      Address:{' '}
-      <span>
-      {street} {housenumber}, {postcode} {city}
-        </span>
-        </p>
-        <p>
-        County: <span>{county}</span> | State: <span>{state}</span> | Country:{' '}
-        <span>{country}</span>
-      </p>
-      <h3>Country side info</h3>
-      <p>
-      Official name: <span>{altSpellingsName}</span>
-      </p>
-      <p>
-        Capital: <span>{capital}</span>
-        </p>
-        <p>
-        Calling code: <span>{callingCodes}</span> | Population:{' '}
-        <span>{population}</span> | Area: <span>{area}km²</span>
-        </p>
-    <img className='countryFlag' src={`${flag}`} alt='Flag n/d' /> */

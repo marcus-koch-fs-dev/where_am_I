@@ -1,7 +1,9 @@
-import './Home.css'
-import { useEffect, useState } from 'react'
+import './Home.scss'
+import { useContext, useEffect, useState } from 'react'
 import { InfoCard, MapBox } from '../../components'
 import { getPositionByBrowser } from '../../api'
+import { PositionContext } from 'context/positionContext'
+import ScaleLoader from 'react-spinners/ScaleLoader'
 import type {
   GeoPositionByBrowser,
   Coordinates
@@ -13,6 +15,7 @@ const Home = () => {
     latitude: 0,
     longitude: 0
   })
+  const { setCoordinates } = useContext(PositionContext)
 
   useEffect(() => {
     getPositionByBrowser((positionData: GeoPositionByBrowser) => {
@@ -20,6 +23,7 @@ const Home = () => {
 
       if (latitude === null || longitude === null) return
 
+      setCoordinates({ latitude: latitude, longitude: longitude })
       setHomeCoordinates({
         latitude: latitude,
         longitude: longitude
@@ -29,14 +33,22 @@ const Home = () => {
   }, [])
 
   return (
-    <div className="home-wrapper">
-      {isMapLoaded && (
-        <>
-          <InfoCard />
-          <MapBox homeCoords={homeCoordinates} />
-        </>
+    <>
+      {isMapLoaded ? (
+        <div className="home__wrapper">
+          <div className="home_infoCard">
+            <InfoCard />
+          </div>
+          <div className="home__mapBox">
+            <MapBox homeCoords={homeCoordinates} />
+          </div>
+        </div>
+      ) : (
+        <div className="loader">
+          <ScaleLoader color="firebrick" radius="5vh" />
+        </div>
       )}
-    </div>
+    </>
   )
 }
 

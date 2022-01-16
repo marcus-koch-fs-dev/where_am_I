@@ -5,7 +5,7 @@ import ReactMapboxGl, {
   ZoomControl,
   RotationControl
 } from 'react-mapbox-gl'
-import './MapBox.css'
+// import './MapBox.css'
 import { Coordinates } from '../../types/positionTypes'
 import { PositionContext } from 'context/positionContext'
 
@@ -18,16 +18,11 @@ const Map = ReactMapboxGl({
 })
 
 const MapBox = ({ homeCoords }: MapBoxProps) => {
-  const { onClick } = useContext(PositionContext)
+  const { setCoordinates } = useContext(PositionContext)
   const [currentCoordinates, setCurrentCoordinates] = useState<Coordinates>({
     latitude: homeCoords.latitude,
     longitude: homeCoords.longitude
   })
-  //! temporary deactivated
-  //   const [zoom, setZoom] = useState<number>(8)
-
-  //   const onZoomEndHandler = (map: { getZoom: () => number }) =>
-  //     setZoom(parseInt(map.getZoom().toFixed(2), 16))
 
   const urlMarker =
     'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png'
@@ -47,7 +42,7 @@ const MapBox = ({ homeCoords }: MapBoxProps) => {
       latitude: lngLat.lat.toFixed(5),
       longitude: lngLat.lng.toFixed(5)
     }),
-      onClick({
+      setCoordinates({
         latitude: lngLat.lat.toFixed(5),
         longitude: lngLat.lng.toFixed(5)
       })
@@ -59,13 +54,11 @@ const MapBox = ({ homeCoords }: MapBoxProps) => {
         onStyleLoad={onStyleLoadHandler}
         style="mapbox://styles/mapbox/streets-v11"
         containerStyle={{
-          height: '90vh',
-          width: '90vw',
+          height: '100%',
+          width: '100%',
           opacity: '0.9'
         }}
-        onClick={onClickHandler}
-        // onZoomEnd={onZoomEndHandler}
-      >
+        onClick={onClickHandler}>
         <ScaleControl />
         <ZoomControl />
         <RotationControl />
