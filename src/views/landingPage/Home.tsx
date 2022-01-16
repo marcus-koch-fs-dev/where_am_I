@@ -30,6 +30,7 @@ const Home = () => {
       })
       setIsMapLoaded(true)
     })
+    // eslint-disable-next-line
   }, [])
 
   return (
@@ -45,7 +46,7 @@ const Home = () => {
         </div>
       ) : (
         <div className="loader">
-          <ScaleLoader color="firebrick" radius="5vh" />
+          <ScaleLoader />
         </div>
       )}
     </>
